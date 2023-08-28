@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let button of buttons) {
         button.addEventListener('click', function () {
             if (this.getAttribute('data-type') === 'submit') {
-                alert('You click submit')
+                checkAnswer();
             } else {
                 let gameType = this.getAttribute('data-type');
                 runGame(gameType);
@@ -31,18 +31,53 @@ const runGame = (gameType) => {
 
     if (gameType === 'addition') {
         displayAdditionQuestion(num1, num2);
+    } else if (gameType === 'subtract') {
+        displaySubtractQuestion(num1, num2);
+    } else if (gameType === 'multiply') {
+        displayMultiplyQuestion(num1, num2);
+    } else if (gameType === 'division') {
+        displayDivisionQuestion(num1, num2);
     } else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
     }
 }
 
+/**
+ * Checks the answer against the first element in
+ * the returned calculateCorrectAnswer array
+ */
 const checkAnswer = () => {
 
+    let userAnswer = +(document.querySelector('#answer-box').value);
+    let calculatedAnswer = calculateCorrectAnswer()
+    let isCorrect = userAnswer === calculatedAnswer[0];
+
+    if (isCorrect) {
+        alert('Hey! You got it right! :D');
+    } else {
+        alert(`Awwww.... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+    }
+
+    runGame(calculatedAnswer[1]);
 }
 
-const calculateAnswer = () => {
+/**
+ * Gets the operands (the numbers) and the operator (plus, minus etc)
+ * directly from the dom, and returns the correct answer.
+ */
+const calculateCorrectAnswer = () => {
 
+    let operand1 = +(document.querySelector('#operand1').innerText);
+    let operand2 = +(document.querySelector('#operand2').innerText);
+    let operator = document.querySelector('#operator').innerText;
+
+    if (operator === '+') {
+        return [operand1 + operand2, 'addition']
+    } else {
+        alert(`Unimplemented operator ${operator}`);
+        throw `Unimplemented operator ${operator}. Aborting!`;
+    }
 }
 
 const incrementScore = () => {
@@ -60,10 +95,20 @@ const displayAdditionQuestion = (operand1, operand2) => {
 
 }
 
-const displaySubtractQuestion = () => {
-
+const displaySubtractQuestion = (operand1, operand2) => {
+    document.querySelector('#operand1').textContent = operand1;
+    document.querySelector('#operand2').textContent = operand2;
+    document.querySelector('#operator').textContent = '-';
 }
 
-const displayMultiplyQuestion = () => {
+const displayMultiplyQuestion = (operand1, operand2) => {
+    document.querySelector('#operand1').textContent = operand1;
+    document.querySelector('#operand2').textContent = operand2;
+    document.querySelector('#operator').textContent = '*';
+}
 
+const displayDivisionQuestion = (operand1, operand2) => {
+    document.querySelector('#operand1').textContent = operand1;
+    document.querySelector('#operand2').textContent = operand2;
+    document.querySelector('#operator').textContent = '/';
 }
