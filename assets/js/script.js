@@ -15,6 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
+    document.querySelector('#answer-box').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            checkAnswer();
+        }
+    })
+
     runGame('addition');
 
 })
@@ -24,6 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
  * and after the user's answer has been processed
  */
 const runGame = (gameType) => {
+
+    document.querySelector('#answer-box').value = '';
+    document.querySelector('#answer-box').focus();
 
     // Creates two random numbers between 1 and 25
     let num1 = Math.floor(Math.random() * 25) + 1;
