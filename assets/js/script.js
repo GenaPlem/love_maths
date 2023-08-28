@@ -78,7 +78,7 @@ const calculateCorrectAnswer = () => {
         return [operand1 + operand2, 'addition']
     } else if (operator === '-') {
         return [operand1 - operand2, 'subtract']
-    } else if (operator === '*') {
+    } else if (operator === 'x') {
         return [operand1 * operand2, 'multiply']
     } else if (operator === '/') {
         return [operand1 / operand2, 'division']
@@ -124,7 +124,7 @@ const displaySubtractQuestion = (operand1, operand2) => {
 const displayMultiplyQuestion = (operand1, operand2) => {
     document.querySelector('#operand1').textContent = operand1;
     document.querySelector('#operand2').textContent = operand2;
-    document.querySelector('#operator').textContent = '*';
+    document.querySelector('#operator').textContent = 'x';
 }
 
 const displayDivisionQuestion = (operand1, operand2) => {
