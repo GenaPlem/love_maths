@@ -45,7 +45,8 @@ const runGame = (gameType) => {
     } else if (gameType === 'multiply') {
         displayMultiplyQuestion(num1, num2);
     } else if (gameType === 'division') {
-        displayDivisionQuestion(num1, num2);
+        let result = num1 * num2;
+        displayDivisionQuestion(result, num2);
     } else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
@@ -125,7 +126,7 @@ const displayAdditionQuestion = (operand1, operand2) => {
 
 const displaySubtractQuestion = (operand1, operand2) => {
     document.querySelector('#operand1').textContent = operand1 > operand2 ? operand1 : operand2;
-    document.querySelector('#operand2').textContent = operand1 > operand2 ? operand2 : operand2;
+    document.querySelector('#operand2').textContent = operand1 > operand2 ? operand2 : operand1;
     document.querySelector('#operator').textContent = '-';
 }
 
@@ -136,7 +137,7 @@ const displayMultiplyQuestion = (operand1, operand2) => {
 }
 
 const displayDivisionQuestion = (operand1, operand2) => {
-    document.querySelector('#operand1').textContent = operand1;
-    document.querySelector('#operand2').textContent = operand2;
+    document.querySelector('#operand1').textContent = operand1 > operand2 ? operand1 : operand2;
+    document.querySelector('#operand2').textContent = operand1 > operand2 ? operand2 : operand1;
     document.querySelector('#operator').textContent = '/';
 }
